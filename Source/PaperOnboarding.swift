@@ -14,6 +14,10 @@ public enum ItemInfoType {
 
 public struct OnboardingItemInfoCustomView {
     let view: UIView
+    
+    public init(view: UIView) {
+        self.view = view
+    }
 }
 
 public struct OnboardingItemInfoOriginal {
