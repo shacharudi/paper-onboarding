@@ -8,7 +8,11 @@
 
 import UIKit
 
-public struct OnboardingItemInfo {
+public enum ItemInfoType {
+    case original
+}
+
+public struct OnboardingItemInfoOriginal {
     public let informationImage: UIImage
     public let title: String
     public let description: String
@@ -34,6 +38,44 @@ public struct OnboardingItemInfo {
         self.descriptionLabelPadding = descriptionLabelPadding
         self.titleLabelPadding = titleLabelPadding
     }
+}
+
+public struct OnboardingItemInfo {
+    
+    let itemType: ItemInfoType
+    let originalItem: OnboardingItemInfoOriginal?
+    
+    public init(originalItem: OnboardingItemInfoOriginal) {
+        self.itemType = .original
+        self.originalItem = originalItem
+    }
+    
+//    
+//    public let informationImage: UIImage
+//    public let title: String
+//    public let description: String
+//    public let pageIcon: UIImage
+//    public let color: UIColor
+//    public let titleColor: UIColor
+//    public let descriptionColor: UIColor
+//    public let titleFont: UIFont
+//    public let descriptionFont: UIFont
+//    public let descriptionLabelPadding: CGFloat
+//    public let titleLabelPadding: CGFloat
+//    
+//    public init (informationImage: UIImage, title: String, description: String, pageIcon: UIImage, color: UIColor, titleColor: UIColor, descriptionColor: UIColor, titleFont: UIFont, descriptionFont: UIFont, descriptionLabelPadding: CGFloat = 0, titleLabelPadding: CGFloat = 0) {
+//        self.informationImage = informationImage
+//        self.title = title
+//        self.description = description
+//        self.pageIcon = pageIcon
+//        self.color = color
+//        self.titleColor = titleColor
+//        self.descriptionColor = descriptionColor
+//        self.titleFont = titleFont
+//        self.descriptionFont = descriptionFont
+//        self.descriptionLabelPadding = descriptionLabelPadding
+//        self.titleLabelPadding = titleLabelPadding
+//    }
 }
 
 /// An instance of PaperOnboarding which display collection of information.
@@ -169,7 +211,12 @@ extension PaperOnboarding {
         })
 
         pageView.configuration = { [weak self] item, index in
-            item.imageView?.image = self?.itemsInfo?[index].pageIcon
+            let itemInfo = self?.itemsInfo?[index]
+            if let itemInfo = itemInfo {
+                switch itemInfo.itemType {
+                case .original: item.imageView?.image = self?.itemsInfo?[index].originalItem?.pageIcon
+                }
+            }
         }
 
         return pageView
@@ -194,10 +241,15 @@ extension PaperOnboarding {
 extension PaperOnboarding {
 
     fileprivate func backgroundColor(_ index: Int) -> UIColor {
-        guard let color = itemsInfo?[index].color else {
-            return .black
+        var color: UIColor?
+        
+        let itemInfo = itemsInfo?[index]
+        switch itemInfo?.itemType {
+        case .original: color = itemInfo?.originalItem?.color
+        case .none: break
         }
-        return color
+
+        return color ?? .black
     }
 }
 

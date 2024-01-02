@@ -91,6 +91,17 @@ extension OnboardingContentView {
             return OnboardingContentViewItem.itemOnView(self, titlePadding: 0, descriptionPadding: 0)
         }
 
+        switch info.itemType {
+        case .original: return createOriginalItem(index, originalInfo: info.originalItem)
+        }
+    }
+    
+    fileprivate func createOriginalItem(_ index: Int, originalInfo: OnboardingItemInfoOriginal?) -> OnboardingContentViewItem {
+        
+        guard let info = originalInfo else {
+            fatalError("Can't create original item: nil value provided")
+        }
+        
         let item = Init(OnboardingContentViewItem.itemOnView(self, titlePadding: info.titleLabelPadding, descriptionPadding: info.descriptionLabelPadding)) {
             $0.imageView?.image = info.informationImage
             $0.titleLabel?.text = info.title
