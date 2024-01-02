@@ -203,8 +203,12 @@ extension PaperOnboarding {
             let itemInfo = self?.itemsInfo?[index]
             if let itemInfo = itemInfo {
                 switch itemInfo.itemType {
-                case .original: item.imageView?.image = self?.itemsInfo?[index].originalItem?.pageIcon
-                case .customView: item.imageView?.image = nil
+                case .original: 
+                    item.imageView?.image = self?.itemsInfo?[index].originalItem?.pageIcon
+                    item.imageView?.isHidden = false
+                case .customView:
+                    item.imageView?.image = nil
+                    item.imageView?.isHidden = true
                 }
             }
         }
