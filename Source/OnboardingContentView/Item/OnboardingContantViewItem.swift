@@ -29,6 +29,7 @@ open class OnboardingContentViewItem: UIView {
     init(customView: UIView) {
         super.init(frame: .zero)
         self.customView = customView
+        addSubview(customView)
         customView.translatesAutoresizingMaskIntoConstraints = false
 
         customView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
