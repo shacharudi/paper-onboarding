@@ -9,7 +9,11 @@
 import UIKit
 
 public enum ItemInfoType {
-    case original
+    case original, customView
+}
+
+public struct OnboardingItemInfoCustomView {
+    let view: UIView
 }
 
 public struct OnboardingItemInfoOriginal {
@@ -44,38 +48,19 @@ public struct OnboardingItemInfo {
     
     let itemType: ItemInfoType
     let originalItem: OnboardingItemInfoOriginal?
+    let customViewItem: OnboardingItemInfoCustomView?
     
     public init(originalItem: OnboardingItemInfoOriginal) {
         self.itemType = .original
         self.originalItem = originalItem
+        self.customViewItem = nil
     }
     
-//    
-//    public let informationImage: UIImage
-//    public let title: String
-//    public let description: String
-//    public let pageIcon: UIImage
-//    public let color: UIColor
-//    public let titleColor: UIColor
-//    public let descriptionColor: UIColor
-//    public let titleFont: UIFont
-//    public let descriptionFont: UIFont
-//    public let descriptionLabelPadding: CGFloat
-//    public let titleLabelPadding: CGFloat
-//    
-//    public init (informationImage: UIImage, title: String, description: String, pageIcon: UIImage, color: UIColor, titleColor: UIColor, descriptionColor: UIColor, titleFont: UIFont, descriptionFont: UIFont, descriptionLabelPadding: CGFloat = 0, titleLabelPadding: CGFloat = 0) {
-//        self.informationImage = informationImage
-//        self.title = title
-//        self.description = description
-//        self.pageIcon = pageIcon
-//        self.color = color
-//        self.titleColor = titleColor
-//        self.descriptionColor = descriptionColor
-//        self.titleFont = titleFont
-//        self.descriptionFont = descriptionFont
-//        self.descriptionLabelPadding = descriptionLabelPadding
-//        self.titleLabelPadding = titleLabelPadding
-//    }
+    public init(customViewItem: OnboardingItemInfoCustomView) {
+        self.itemType = .customView
+        self.customViewItem = customViewItem
+        self.originalItem = nil
+    }
 }
 
 /// An instance of PaperOnboarding which display collection of information.
@@ -215,6 +200,7 @@ extension PaperOnboarding {
             if let itemInfo = itemInfo {
                 switch itemInfo.itemType {
                 case .original: item.imageView?.image = self?.itemsInfo?[index].originalItem?.pageIcon
+                case .customView: item.imageView?.image = nil
                 }
             }
         }
@@ -246,6 +232,7 @@ extension PaperOnboarding {
         let itemInfo = itemsInfo?[index]
         switch itemInfo?.itemType {
         case .original: color = itemInfo?.originalItem?.color
+        case .customView: color = itemInfo?.customViewItem?.view.backgroundColor
         case .none: break
         }
 

@@ -93,6 +93,7 @@ extension OnboardingContentView {
 
         switch info.itemType {
         case .original: return createOriginalItem(index, originalInfo: info.originalItem)
+        case .customView: return createCustomViewItem(index, customViewInfo: info.customViewItem)
         }
     }
     
@@ -114,6 +115,15 @@ extension OnboardingContentView {
 
         delegate?.onboardingConfigurationItem(item, index: index)
         return item
+    }
+    
+    fileprivate func createCustomViewItem(_ index: Int, customViewInfo: OnboardingItemInfoCustomView?) -> OnboardingContentViewItem {
+        
+        guard let info = customViewInfo else {
+            fatalError("Can't create customViewInfo item: nil value provided")
+        }
+        
+        return OnboardingContentViewItem(customView: info.view)
     }
 }
 

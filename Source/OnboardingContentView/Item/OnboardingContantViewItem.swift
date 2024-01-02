@@ -19,12 +19,24 @@ open class OnboardingContentViewItem: UIView {
     open var imageView: UIImageView?
     open var titleLabel: UILabel?
     open var descriptionLabel: UILabel?
+    open var customView: UIView?
 
     init(titlePadding: CGFloat, descriptionPadding: CGFloat) {
         super.init(frame: .zero)
         commonInit(titlePadding: titlePadding, descriptionPadding: descriptionPadding)
     }
 
+    init(customView: UIView) {
+        super.init(frame: .zero)
+        self.customView = customView
+        customView.translatesAutoresizingMaskIntoConstraints = false
+
+        customView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        customView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
+        customView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        customView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+    }
+    
     public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
