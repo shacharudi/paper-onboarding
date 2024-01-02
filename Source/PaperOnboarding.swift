@@ -207,7 +207,7 @@ extension PaperOnboarding {
                     item.imageView?.image = self?.itemsInfo?[index].originalItem?.pageIcon
                     pageView.isHidden = false
                 case .customView:
-                    pageView.isHidden = true
+                    pageView.isHidden = false
                 }
             }
         }
