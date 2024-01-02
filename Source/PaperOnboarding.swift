@@ -205,10 +205,9 @@ extension PaperOnboarding {
                 switch itemInfo.itemType {
                 case .original: 
                     item.imageView?.image = self?.itemsInfo?[index].originalItem?.pageIcon
-                    item.imageView?.isHidden = false
+                    pageView.isHidden = false
                 case .customView:
-                    item.imageView?.image = nil
-                    item.imageView?.isHidden = true
+                    pageView.isHidden = true
                 }
             }
         }
