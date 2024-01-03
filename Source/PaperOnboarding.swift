@@ -243,7 +243,7 @@ extension PaperOnboarding {
         case .none: break
         }
 
-        return color ?? .white
+        return color ?? .clear
     }
 }
 
