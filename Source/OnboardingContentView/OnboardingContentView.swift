@@ -124,6 +124,7 @@ extension OnboardingContentView {
         }
         
         let item = OnboardingContentViewItem(customView: info.view)
+        
         addSubview(item)
         
         item.translatesAutoresizingMaskIntoConstraints = false

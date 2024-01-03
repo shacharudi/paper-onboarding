@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol OnboardingCustomViewType: AnyObject {
+public protocol OnboardingCustomViewType: AnyObject {
     func setupContent()
 }
 
