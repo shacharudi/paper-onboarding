@@ -8,10 +8,8 @@
 
 import UIKit
 
-open class OnboardingContentViewItemCustomView: UIView {
-    func setupContent() {
-        fatalError("Must override setupContent in OnboardingContentViewItemCustomView")
-    }
+protocol OnboardingCustomViewType: AnyObject {
+    func setupContent()
 }
 
 open class OnboardingContentViewItem: UIView {
@@ -32,7 +30,7 @@ open class OnboardingContentViewItem: UIView {
         commonInit(titlePadding: titlePadding, descriptionPadding: descriptionPadding)
     }
 
-    init(customView: OnboardingContentViewItemCustomView) {
+    init(customView: UIView) {
         super.init(frame: .zero)
         self.customView = customView
         addSubview(customView)
@@ -43,7 +41,9 @@ open class OnboardingContentViewItem: UIView {
         customView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
         customView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
         
-        customView.setupContent()
+        if let onboardingCustomView = customView as? OnboardingCustomViewType {
+            onboardingCustomView.setupContent()
+        }
     }
     
     public required init?(coder _: NSCoder) {
