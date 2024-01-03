@@ -13,9 +13,9 @@ public enum ItemInfoType {
 }
 
 public struct OnboardingItemInfoCustomView {
-    let view: UIView
+    let view: OnboardingContentViewItemCustomView
     
-    public init(view: UIView) {
+    public init(view: OnboardingContentViewItemCustomView) {
         self.view = view
     }
 }

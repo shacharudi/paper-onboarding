@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OnboardingContentViewItemCustomView: UIView {
+open class OnboardingContentViewItemCustomView: UIView {
     func setupContent() {
         fatalError("Must override setupContent in OnboardingContentViewItemCustomView")
     }
