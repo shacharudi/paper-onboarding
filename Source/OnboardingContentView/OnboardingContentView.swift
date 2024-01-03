@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol OnboardingContentViewDelegate: class {
+protocol OnboardingContentViewDelegate: AnyObject {
 
     func onboardingItemAtIndex(_ index: Int) -> OnboardingItemInfo?
     func onboardingConfigurationItem(_ item: OnboardingContentViewItem, index: Int)
@@ -123,7 +123,16 @@ extension OnboardingContentView {
             fatalError("Can't create customViewInfo item: nil value provided")
         }
         
-        return OnboardingContentViewItem(customView: info.view)
+        let item = OnboardingContentViewItem(customView: info.view)
+        addSubview(item)
+        
+        item.translatesAutoresizingMaskIntoConstraints = false
+        item.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        item.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
+        item.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        item.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        
+        return item
     }
 }
 
